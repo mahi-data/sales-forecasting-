@@ -1,0 +1,45 @@
+# Sales Forecasting Project (Beginner Friendly)
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+
+# --- Step 1: Create sample dataset ---
+data = {
+    "Month": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+    "Sales": [12000,13500,15000,16500,15500,17000,18000,19000,21000,20000,21500,22500],
+    "Profit": [2000,2500,2600,2900,2700,3000,3200,3300,3500,3400,3600,3800],
+    "Ad_Spend": [3000,3200,3500,3700,3400,3900,4200,4300,4400,4500,4600,4800]
+}
+
+df = pd.DataFrame(data)
+print("Dataset Preview:\n", df.head())
+
+# --- Step 2: Visualization ---
+sns.lineplot(x='Month', y='Sales', data=df, marker='o')
+plt.title("Monthly Sales Trend")
+plt.show()
+
+# --- Step 3: Model Preparation ---
+df['Month_Num'] = range(1, len(df)+1)
+X = df[['Month_Num']]
+y = df['Sales']
+
+# --- Step 4: Linear Regression Model ---
+model = LinearRegression()
+model.fit(X, y)
+
+# --- Step 5: Forecast for next 3 months ---
+future_months = pd.DataFrame({'Month_Num': [len(df)+1, len(df)+2, len(df)+3]})
+forecast = model.predict(future_months)
+print("\nNext 3 Month Sales Forecast:", forecast)
+
+# --- Step 6: Plot Forecast ---
+plt.scatter(df['Month_Num'], df['Sales'], color='blue', label='Actual Sales')
+plt.plot(df['Month_Num'], model.predict(X), color='red', label='Trend Line')
+plt.xlabel("Month Number")
+plt.ylabel("Sales")
+plt.title("Sales Forecasting")
+plt.legend()
+plt.show()
