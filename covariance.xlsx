@@ -1,0 +1,26 @@
+print('Hello, world!')
+import pandas as pd
+
+# Company data
+data = {
+    "Section": [
+        "CompanyOverview", "Key Management", "Director", "Shareholding Pattern",
+        "Balance Sheet Snapshot", "Cash Flow & Ratios", "Products & Services", "Future Outlook"
+    ],
+    "Details": [
+        "Incorporated 2005, Ahmedabad HQ, Management, Manufactures Inorganic acids",
+        "CEO: Kunal Mehta",
+        "Rajesh Patel, CFO: Neha Shah, CS: Ankit Desai",
+        "Promoters 65%, Public 20%, Institution 10%, Others 5%",
+        "Equity Base Expanded From ₹50cr, Borrowing Details...",
+        "Cash Flow Rise from ₹20cr in FY21 to ₹31cr, Net Cash, Debt/Equity 0.8, ROE=14%, Profit Margin=8%, Current Ratio=1.5",
+        "Sulphuric, Hydrochloric, Nitric, Phosphoric Acids",
+        "Expand Capacity 15%, Global Markets, New Facility"
+    ]
+}
+
+df = pd.DataFrame(data)
+
+# Stylish table
+styled = df.style.set_properties(**{'text-align': 'left'}).background_gradient(cmap="Greens").set_caption("Company Report")
+display(styled)
